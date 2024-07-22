@@ -8,11 +8,11 @@ def get_all_temperatures(db: Session, skip: int, limit: int):
 def get_temperature_by_city_id(db: Session, city_id: int):
     return db.query(models.Temperature).filter(models.Temperature.city_id == city_id).first()
 
-def get_temperatures_for_cities(db: Session):
+async def get_temperatures_for_cities(db: Session):
     cities = get_all_cities_no_pagination(db)
     print(cities)
     for city in cities:
-        current_temp = utils.get_current_temperature(city.name)
+        current_temp = await utils.get_current_temperature(city.name)
         temperature = get_temperature_by_city_id(db, city.id)
         if temperature:
             temperature.temperature = current_temp

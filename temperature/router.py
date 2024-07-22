@@ -12,8 +12,8 @@ def get_temperature(db: Session = Depends(get_db),skip: int = 0, limit: int = 10
 
 
 @router.post("/temperatures/update")
-def get_cities(db: Session = Depends(get_db)): 
-    return crud.get_temperatures_for_cities(db)
+async def get_cities(db: Session = Depends(get_db)): 
+    return await crud.get_temperatures_for_cities(db)
 
 
 @router.get("/temperatures/?city_id={city_id}", response_model=schemas.Temperature)
